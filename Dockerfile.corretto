@@ -1,0 +1,4 @@
+From  amazoncorretto:latest
+
+COPY ./limits.conf /etc/security/limits.d/
+COPY ./locale.conf /etc/

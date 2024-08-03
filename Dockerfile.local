@@ -1,0 +1,47 @@
+FROM honux77/ubuntu
+
+FROM appropriate/curl
+
+FROM mwendler/wget
+
+FROM spotify/kafka
+
+FROM amazoncorretto:latest
+
+ENV APPLICATION_USER korbit
+ENV APP_NAME fisherman-pushserver
+
+MAINTAINER Korbit Developer <developer@korbit.co.kr>
+
+RUN mkdir -p /$APPLICATION_USER
+RUN mkdir -p /$APPLICATION_USER/jks
+RUN mkdir -p /$APPLICATION_USER/log
+
+WORKDIR /$APPLICATION_USER
+
+COPY ./build/libs/$APP_NAME.jar $APP_NAME.jar
+COPY ./jks/key.jks jks/key.jks
+COPY ./run.sh run.sh
+COPY ./stop.sh stop.sh
+RUN chmod 774 run.sh stop.sh
+
+# https://stackoverflow.com/posts/11345256/revisions
+COPY ./limits.conf /etc/security/limits.d/
+COPY ./locale.conf /etc/
+
+#RUN ulimit -n 65536 > /tmp/a
+#RUN ulimit >> /tmp/a
+
+RUN ["chown", "-R", "daemon", "."]
+
+USER root
+
+#ENTRYPOINT ["java", "-XX:+UseG1GC", "-XX:+DisableExplicitGC", "-XX:+UseStringDeduplication", "-Xms1096m", "-Xmx1096m", "-verbosegc", "-XX:+PrintGCDetails", "-XX:+PrintGCTimeStamps", "-Xloggc:./gc.log",  "-Djava.net.preferIPv4Stack=true", "-Dcom.ning.http.client.AsyncHttpClientConfig.allowPoolingConnection=false", "-jar", "fisherman-pushserver.jar"]
+
+ENTRYPOINT ["./run.sh"]
+
+EXPOSE 8080
+
+CMD []
+
+

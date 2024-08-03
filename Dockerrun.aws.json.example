@@ -1,0 +1,29 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "kephakhang/fisherman-pushserver:0.0.9",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8080",
+      "HostPort": "80"
+    }
+  ],
+  "Volumes": [
+      {
+        "HostDirectory": "/home/korbit",
+        "ContainerDirectory": "/korbit"
+      }
+  ],
+  "ulimits": [
+      {
+        "name": "nofile",
+        "softLimit": 65536,
+        "hardLimit": 65536
+      }
+   ],
+  "Logging": "/korbit/log",
+  "Entrypoint": "/korbit/run.sh",
+  "Command": ""
+}

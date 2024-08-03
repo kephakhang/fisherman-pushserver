@@ -1,0 +1,7 @@
+{
+  "channel": "orderbook",
+  "currency_pair": "btc_krw",
+  "timestamp" : 1386135077000,
+  "bids" : [{"price": 1100000, "amount": 0.0103918}, {"price": 1000000, "amount": 0.01000000}],
+  "asks" : [{"price": 569000, "amount": 0.50000000}, {"price": 568500, "amount": 2.00000000}]
+}

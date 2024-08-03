@@ -1,0 +1,12 @@
+{
+    "lang":"kor",
+    "id":"test",
+    "req":"none",
+    "res":"이 동물은 무엇일까요?",
+    "service":{
+       "items":[
+           {"name":"악어","image_path":"word/animal/Alligator.jpg","vedio_path":"NULL","sound_path":"voice/word/animal/Alligator.mp3"}
+        ]
+    },
+    "status":"success"
+}

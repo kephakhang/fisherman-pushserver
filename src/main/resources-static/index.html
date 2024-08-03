@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8"/>
+  <title>Fisherman</title>
+    <script>
+      // if ('serviceWorker' in navigator) {
+      //   navigator.serviceWorker.register('combined-sw.js')
+      //     .then(() => console.log('service worker installed'))
+      //     .catch(err => console.log('Error', err));
+      // }
+
+      function getMobileOperatingSystem() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // Windows Phone must come first because its UA also contains "Android"
+        if (/windows phone/i.test(userAgent)) {
+          return "Windows Phone";
+        }
+
+        if (/android/i.test(userAgent)) {
+          return "android";
+        }
+
+        // iOS detection from: http://stackoverflow.com/a/9039885/177710
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          return "ios";
+        }
+
+        return "unknown";
+      }
+
+      var platform = getMobileOperatingSystem();
+    </script>
+
+  <base href="/"/>
+
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <!--meta http-equiv="Content-Security-Policy" content="default-src 'none' connect-src 'none'"/-->
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="msapplication-tap-highlight" content="no"/>
+
+  <meta name="description" content="Korbit ::: Fisherman ::: 푸쉬 서비스 서버">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Fisherman">
+  <meta property="og:site_name" content="Fisherman">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Korbit ::: Fisherman ::: 푸쉬 서비스 서버">
+  <meta property="og:image" content="assets/logo.ico/apple-icon.png">
+  <meta property="og:url" content="">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fisherman">
+  <meta name="twitter:description" content="Korbit ::: Fisherman ::: 푸쉬 서비스 서버">
+
+  <link rel='shortcut icon' type='image/x-icon' href='favicon/favicon.ico' />
+  <!--link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5"-->
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <!--link rel="manifest" href="manifest.webmanifest"-->
+  <meta name="theme-color" content="#1976d2">
+<link rel="stylesheet" href="styles.21440ec78377d014c311.css"></head>
+
+<body>
+  <app-root></app-root>
+
+  <div class="custom-overlay">
+    <img class="splash" src="assets/png/ic_splash_logo.png"></div>
+  </div>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+<script src="runtime-es2015.1a85962540b42e2ba6be.js" type="module"></script><script src="runtime-es5.1a85962540b42e2ba6be.js" nomodule defer></script><script src="polyfills-es5.640dc715ee735681cb19.js" nomodule defer></script><script src="polyfills-es2015.a845226c3c12f7331fcf.js" type="module"></script><script src="main-es2015.4c5e9478a9e3743fc876.js" type="module"></script><script src="main-es5.4c5e9478a9e3743fc876.js" nomodule defer></script></body>
+
+</html>
+
+<!--script src="capacitor.js"></script-->
+<!--script src="cordova.js"></script-->
+<style>
+  div.custom-overlay {
+    width: 100%;
+    height: 100%;
+    /* z-index: -111; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bory-blue);
+  }
+
+  img.splash {
+    width: 15rem;
+    height: 15rem;
+    margin-bottom: 15rem;
+  }
+</style>

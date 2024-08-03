@@ -1,0 +1,92 @@
+1. Fisherman <->  Kafka 통신에 SSL 적용하였습니다.
+-> 보안 이슈 때문에 Gus 께서 요청하셨습니다.
+
+2. 로칼 적용 : 현제 fisherman-pushserver:local 브랜치에만 적용되어 있습니다.
+-> AWS Kafka 설정이 다를 수도 있을 것 같아서요. 우선 로칼에서 테스트 해 봐 주시면 감사하겠습니다
+
+4. 적용 내용
+
+[server.properties]
+#listeners=PLAINTEXT://localhost:9092
+
+listeners=SSL://localhost:9092
+
+::::
+
+# ssl
+
+# https://docs.confluent.io/2.0.0/kafka/ssl.html
+
+# https://docs.microsoft.com/ko-kr/azure/hdinsight/kafka/apache-kafka-ssl-encryption-authentication
+
+#
+
+ssl.keystore.location=/usr/local/Cellar/kafka/2.12-2.3.1/ssl/kafka.server.keystore.jks
+
+ssl.keystore.password=korbit
+
+ssl.key.password=korbit
+
+ssl.truststore.location=/usr/local/Cellar/kafka/2.12-2.3.1/ssl/kafka.server.truststore.jks
+
+ssl.truststore.password=korbit
+
+#
+
+ssl.client.auth=required
+
+ssl.cipher.suites=
+
+ssl.enabled.protocols=TLSv1.2,TLSv1.1,TLSv1
+
+ssl.keystore.type=JKS
+
+ssl.truststore.type=JKS
+
+security.inter.broker.protocol=SSL
+
+ssl.endpoint.identification.algorithm=
+
+
+[producer.properties][consumer.properties]
+#
+
+security.protocol=SSL
+
+ssl.truststore.location=/usr/local/Cellar/kafka/2.12-2.3.1/ssl/kafka.client.truststore.jks
+
+ssl.truststore.password=korbit
+
+ssl.keystore.location=/usr/local/Cellar/kafka/2.12-2.3.1/ssl/kafka.server.keystore.jks
+
+ssl.keystore.password=korbit
+
+ssl.key.password=korbit
+
+ssl.endpoint.identification.algorithm=
+
+
+4. ssl 키생성 (Local)
+https://docs.confluent.io/2.0.0/kafka/ssl.html
+생성한 파일 셋은 ssl.zip 으로 첨부하였습니다.
+
+5. fisherman-pushserver 소스 적용내용
+src/resources-local/application.conf 에 ssl 설정 추가
+jks/kafka.server.keystore.jks 파일 추가
+jks/kafka.server.truststore.jks 파일 추가
+
+6. 테스트 Case
+
+ws-client 모듈을 실행후 2번째 탭에서 채널별 서버 연동 테스트 가능합니다.
+카프카로 topic 별 테스트 데이타는 topic-data.zip 으로 첨부하였습니다.
+
+7. kafka 에 테스트 데이타 파일 전송
+ jq -rc . ticker.json | /usr/local/Cellar/kafka/2.12-2.3.1/bin/kafka-console-producer.sh  --broker-list 127.0.0.1:9092 --topic ticker --producer.config /usr/local/Cellar/kafka/2.12-2.3.1/config/producer.properties
+
+
+[kafkain 쉘스크립트 : kafkain $topicname $jsonfile]
+#!/bin/sh
+
+  
+
+jq -rc . $2 | /usr/local/Cellar/kafka/2.12-2.3.1/bin/kafka-console-producer.sh  --broker-list 127.0.0.1:9092  --producer.config /usr/local/Cellar/kafka/2.12-2.3.1/config/producer.properties --topic $1

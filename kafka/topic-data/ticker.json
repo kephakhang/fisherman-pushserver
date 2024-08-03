@@ -1,0 +1,13 @@
+{
+  "channel": "ticker",
+  "currency_pair": "btc_krw",
+  "timestamp": 1558590089274,
+  "last": 9198500,
+  "open": 9500000,
+  "bid": 9192500,
+  "ask": 9198000,
+  "low": 9171500,
+  "high": 9599000,
+  "volume": 1539.18571988,
+  "change": -301500
+}
